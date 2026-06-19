@@ -1,48 +1,21 @@
-// Get all shelters
-exports.getShelters = async (req, res) => {
-  try {
-    // Add logic to fetch shelters from database
-    res.status(200).json({ message: 'Shelters retrieved successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+import db from "../config/db.js";
+
+export const getShelters = (req, res) => {
+  db.query("SELECT * FROM shelters ORDER BY created_at DESC", (err, results) => {
+    if (err) return res.status(500).json({ message: err.message });
+    res.json(results);
+  });
 };
 
-// Create shelter
-exports.createShelter = async (req, res) => {
-  try {
-    const { name, location, capacity, description } = req.body;
-    
-    // Add validation and shelter creation logic here
-    
-    res.status(201).json({ message: 'Shelter created successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+export const createShelter = (req, res) => {
+  const { name, location, capacity, description } = req.body;
 
-// Update shelter
-exports.updateShelter = async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    // Add update logic here
-    
-    res.status(200).json({ message: 'Shelter updated successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// Get shelter details
-exports.getShelterById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    // Add logic to fetch specific shelter
-    
-    res.status(200).json({ message: 'Shelter details retrieved' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  db.query(
+    "INSERT INTO shelters (name, location, capacity, description) VALUES (?, ?, ?, ?)",
+    [name, location, capacity, description],
+    (err) => {
+      if (err) return res.status(500).json({ message: err.message });
+      res.status(201).json({ message: "Shelter created successfully" });
+    }
+  );
 };

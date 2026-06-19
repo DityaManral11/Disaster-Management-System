@@ -1,48 +1,33 @@
+import db from "../config/db.js";
+
 // Get all alerts
-exports.getAlerts = async (req, res) => {
-  try {
-    // Add logic to fetch alerts from database
-    res.status(200).json({ message: 'Alerts retrieved successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+export const getAlerts = (req, res) => {
+  db.query("SELECT * FROM alerts ORDER BY created_at DESC", (err, results) => {
+    if (err) {
+      return res.status(500).json({ message: err.message });
+    }
+    res.json(results);
+  });
 };
 
 // Create alert
-exports.createAlert = async (req, res) => {
-  try {
-    const { title, description, location, severity } = req.body;
-    
-    // Add validation and alert creation logic here
-    
-    res.status(201).json({ message: 'Alert created successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+export const createAlert = (req, res) => {
+  const { title, description, location, severity } = req.body;
 
-// Update alert
-exports.updateAlert = async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    // Add update logic here
-    
-    res.status(200).json({ message: 'Alert updated successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+  const sql =
+    "INSERT INTO alerts (title, description, location, severity) VALUES (?, ?, ?, ?)";
 
-// Delete alert
-exports.deleteAlert = async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    // Add delete logic here
-    
-    res.status(200).json({ message: 'Alert deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  db.query(
+    sql,
+    [title, description, location, severity],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json({ message: err.message });
+      }
+
+      res.status(201).json({
+        message: "Alert created successfully",
+      });
+    }
+  );
 };

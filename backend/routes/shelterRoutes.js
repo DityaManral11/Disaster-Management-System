@@ -1,12 +1,9 @@
-const express = require('express');
-const shelterController = require('../controllers/shelterController');
-const authMiddleware = require('../middleware/authMiddleware');
+import express from "express";
+import { getShelters, createShelter } from "../controllers/shelterController.js";
 
 const router = express.Router();
 
-router.get('/', shelterController.getShelters);
-router.get('/:id', shelterController.getShelterById);
-router.post('/', authMiddleware, shelterController.createShelter);
-router.put('/:id', authMiddleware, shelterController.updateShelter);
+router.get("/", getShelters);
+router.post("/", createShelter);
 
-module.exports = router;
+export default router;

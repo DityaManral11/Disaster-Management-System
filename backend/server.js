@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import db from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import sosRoutes from "./routes/sosRoutes.js";
+import alertRoutes from "./routes/alertRoutes.js";
+import shelterRoutes from "./routes/shelterRoutes.js";
 
 dotenv.config();
 
@@ -13,6 +15,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/sos", sosRoutes);
+app.use("/api/alerts", alertRoutes);
+app.use("/api/shelters", shelterRoutes);
 
 // Test Route
 app.get("/", (req, res) => {
