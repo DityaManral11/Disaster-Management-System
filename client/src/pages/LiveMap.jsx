@@ -5,22 +5,28 @@ import "leaflet/dist/leaflet.css";
 const disasterLocations = [
   {
     id: 1,
-    type: "Flood",
-    location: "Patna, Bihar",
-    position: [25.5941, 85.1376],
+    type: "Flood Alert",
+    location: "Delhi, India",
+    position: [28.6139, 77.2090],
   },
   {
     id: 2,
-    type: "Fire",
-    location: "Gaya, Bihar",
-    position: [24.7914, 85.0002],
+    type: "Fire Alert",
+    location: "Noida, Uttar Pradesh",
+    position: [28.5355, 77.3910],
   },
   {
     id: 3,
-    type: "Earthquake",
-    location: "Muzaffarpur, Bihar",
-    position: [26.1209, 85.3647],
+    type: "Earthquake Alert",
+    location: "Gurugram, Haryana",
+    position: [28.4595, 77.0266],
   },
+  {
+    id: 4,
+    type: "Medical Emergency",
+    location: "Faridabad, Haryana",
+    position: [28.4090, 77.3178],
+  }
 ];
 
 const LiveMap = () => {

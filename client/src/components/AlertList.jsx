@@ -3,14 +3,26 @@ const AlertList = () => {
     {
       id: 1,
       type: "Flood Warning",
-      location: "North Bihar",
+      location: "Noida, Uttar Pradesh",
       severity: "High",
     },
     {
       id: 2,
-      type: "Heavy Rainfall",
-      location: "Patna",
+      type: "Fire Alert",
+      location: "Ghaziabad, Uttar Pradesh",
       severity: "Medium",
+    },
+    {
+      id: 3,
+      type: "Earthquake Advisory",
+      location: "Gurguram, Haryana",
+      severity: "Low",
+    },
+    {
+      id: 4,
+      type: "Medical Emergency",
+      location: "Faridabad, Haryana",
+      severity: "High",
     },
   ];
 
