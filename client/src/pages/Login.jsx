@@ -33,7 +33,13 @@ const Login = () => {
       );
 
       alert("Login Successful");
-      navigate("/dashboard");
+      if(res.data.user.role === "admin"){
+        navigate("/admin");
+      } else if(res.data.user.role === "volunteer"){
+      navigate("/volunteer-dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       alert(
         error.response?.data?.message ||
