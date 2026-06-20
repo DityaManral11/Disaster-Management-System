@@ -27,26 +27,21 @@ const Login = () => {
       );
 
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem(
-        "user",
-        JSON.stringify(res.data.user)
-      );
+      localStorage.setItem("user",JSON.stringify(res.data.user));
 
       alert("Login Successful");
-      if(res.data.user.role === "admin"){
+
+      if (res.data.user.role === "admin") {
         navigate("/admin");
-      } else if(res.data.user.role === "volunteer"){
-      navigate("/volunteer-dashboard");
+      } else if (res.data.user.role === "volunteer") {
+        navigate("/volunteer-dashboard");
       } else {
         navigate("/dashboard");
       }
-    } catch (error) {
-      alert(
-        error.response?.data?.message ||
-        "Login Failed"
-      );
-    }
-  };
+  } catch (error) {
+    alert(error.response?.data?.message || "Login Failed");
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center px-4">
