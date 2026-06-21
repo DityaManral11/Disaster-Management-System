@@ -20,7 +20,7 @@ import ManageAlerts from "./pages/admin/ManageAlerts";
 import ManageResources from "./pages/admin/ManageResources";
 import ManageShelters from "./pages/admin/ManageShelters";
 import ManageVolunteers from "./pages/admin/ManageVolunteers";
-
+import ManageSOS from "./pages/admin/ManageSOS";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
     <BrowserRouter>
       <button
         onClick={() => setDarkMode(!darkMode)}
-        className="fixed top-4 right-4 z-50 px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 dark:text-white shadow-md"
+        className="fixed bottom-6 right-6 z-50 px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 dark:text-white shadow-md"
       >
         {darkMode ? "☀️ Light" : "🌙 Dark"}
       </button>
@@ -185,6 +185,11 @@ function App() {
               <ManageVolunteers />
             </ProtectedRoute>
           }
+        />
+
+        <Route
+          path="/manage-sos"
+          element={<ManageSOS />}
         />
       </Routes>
     </BrowserRouter>

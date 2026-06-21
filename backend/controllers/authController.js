@@ -116,6 +116,12 @@ export const login = (req, res) => {
             full_name: user.full_name,
             email: user.email,
             role: user.role,
+            phone: user.phone,
+            city: user.city,
+            blood_group: user.blood_group,
+            availability: user.availability,
+            emergency_contact: user.emergency_contact,
+            skills: user.skills,
           },
         });
       }

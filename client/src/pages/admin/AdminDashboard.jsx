@@ -4,30 +4,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const alerts = [
-  {
-    id: 1,
-    type: "Flood Warning",
-    area: "Noida, Uttar Pradesh",
-    severity: "High",
-  },
-  {
-    id: 2,
-    type: "Fire Alert",
-    area: "Ghaziabad, Uttar Pradesh",
-    severity: "Medium",
-  },
-  {
-    id: 3,
-    type: "Earthquake Advisory",
-    area: "Gurugram, Haryana",
-    severity: "Low",
-  },
-  {
-    id: 4,
-    type: "Medical Emergency",
-    area: "Faridabad, Haryana",
-    severity: "High",
-  },
+  { id: 1, type: "Flood Warning", area: "Noida, Uttar Pradesh", severity: "High" },
+  { id: 2, type: "Fire Alert", area: "Ghaziabad, Uttar Pradesh", severity: "Medium" },
+  { id: 3, type: "Earthquake Advisory", area: "Gurugram, Haryana", severity: "Low" },
+  { id: 4, type: "Medical Emergency", area: "Faridabad, Haryana", severity: "High" },
 ];
 
 const AdminDashboard = () => {
@@ -47,16 +27,41 @@ const AdminDashboard = () => {
     }
   };
 
+  const updateSOSStatus = async (id, status) => {
+    try {
+      await axios.put(`http://localhost:5000/api/sos/status/${id}`, {
+        status,
+      });
+
+      setSosRequests((prev) =>
+        prev.map((item) =>
+          item.sos_id === id ? { ...item, status } : item
+        )
+      );
+    } catch (error) {
+      console.error(error);
+      alert("Failed to update SOS status");
+    }
+  };
+
   const getSeverityColor = (severity) => {
     if (severity === "High") {
       return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
     }
-
     if (severity === "Medium") {
       return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400";
     }
-
     return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
+  };
+
+  const getStatusColor = (status) => {
+    if (status === "Pending") {
+      return "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400";
+    }
+    if (status === "In Progress") {
+      return "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400";
+    }
+    return "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400";
   };
 
   return (
@@ -68,18 +73,14 @@ const AdminDashboard = () => {
           <h1 className="text-4xl font-bold text-red-600 dark:text-red-400">
             ⚙️ Admin Dashboard
           </h1>
-
           <p className="text-gray-600 dark:text-gray-300 mt-2">
-            Monitor emergencies, manage resources, and coordinate disaster
-            response.
+            Monitor emergencies, manage resources, and coordinate disaster response.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-gray-500 dark:text-gray-400">
-              Active Alerts
-            </h3>
+            <h3 className="text-gray-500 dark:text-gray-400">Active Alerts</h3>
             <p className="text-4xl font-bold text-red-600 dark:text-red-400 mt-2">
               {alerts.length}
             </p>
@@ -93,18 +94,14 @@ const AdminDashboard = () => {
           </div>
 
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-gray-500 dark:text-gray-400">
-              Active Volunteers
-            </h3>
+            <h3 className="text-gray-500 dark:text-gray-400">Active Volunteers</h3>
             <p className="text-4xl font-bold text-green-600 dark:text-green-400 mt-2">
               6
             </p>
           </div>
 
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
-            <h3 className="text-gray-500 dark:text-gray-400">
-              Available Shelters
-            </h3>
+            <h3 className="text-gray-500 dark:text-gray-400">Available Shelters</h3>
             <p className="text-4xl font-bold text-blue-600 dark:text-blue-400 mt-2">
               8
             </p>
@@ -119,7 +116,7 @@ const AdminDashboard = () => {
               </h2>
 
               <button
-                onClick={() => navigate("/sos")}
+                onClick={() => navigate("/manage-sos")}
                 className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
               >
                 View All
@@ -164,16 +161,41 @@ const AdminDashboard = () => {
                             📍 View Location
                           </button>
                         )}
+
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <button
+                            onClick={() =>
+                              updateSOSStatus(request.sos_id, "In Progress")
+                            }
+                            className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition"
+                          >
+                            Start
+                          </button>
+
+                          <button
+                            onClick={() =>
+                              updateSOSStatus(request.sos_id, "Resolved")
+                            }
+                            className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition"
+                          >
+                            Resolve
+                          </button>
+
+                          <button
+                            onClick={() =>
+                              updateSOSStatus(request.sos_id, "Pending")
+                            }
+                            className="bg-yellow-600 text-white px-3 py-2 rounded-lg hover:bg-yellow-700 transition"
+                          >
+                            Pending
+                          </button>
+                        </div>
                       </div>
 
                       <span
-                        className={`px-3 py-1 rounded-full text-sm ${
-                          request.status === "Pending"
-                            ? "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400"
-                            : request.status === "In Progress"
-                            ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400"
-                            : "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
-                        }`}
+                        className={`px-3 py-1 rounded-full text-sm whitespace-nowrap ${getStatusColor(
+                          request.status
+                        )}`}
                       >
                         {request.status}
                       </span>

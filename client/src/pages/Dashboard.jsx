@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const savedUser = JSON.parse(localStorage.getItem("user"));
   const [stats, setStats] = useState({
     alerts: 0,
     shelters: 0,
@@ -26,8 +27,8 @@ const Dashboard = () => {
 
       <div className="flex-1 p-8">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
-            Welcome Back, User 👋
+          <h1 className="text-4xl font-bold text-white">
+            Welcome Back, {savedUser?.full_name || "User"} 👋
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2">
             Stay informed and stay safe.

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import Sidebar from "../components/Sidebar";
 
 const volunteerTasks = [
@@ -70,17 +71,47 @@ const Volunteers = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    alert("🎉 Volunteer Registered Successfully!");
+    const savedUser = JSON.parse(localStorage.getItem("user"));
 
-    setVolunteer({
-      name: "",
-      phone: "",
-      skills: "",
-      availability: "",
-    });
+    if (!savedUser?.user_id) {
+      alert("Please login first");
+      return;
+    }
+
+    try {
+      await axios.put(
+        `http://localhost:5000/api/users/become-volunteer/${savedUser.user_id}`,
+        {
+          full_name: volunteer.name,
+          phone: volunteer.phone,
+          skills: volunteer.skills,
+          availability: volunteer.availability,
+        }
+      );
+
+      const updatedUser = {
+        ...savedUser,
+        full_name: volunteer.name,
+        role: "volunteer",
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      alert("🎉 Volunteer Registered Successfully!");
+
+      setVolunteer({
+        name: "",
+        phone: "",
+        skills: "",
+        availability: "",
+      });
+    } catch (error) {
+      console.error(error);
+      alert("❌ Failed to register volunteer");
+   }
   };
 
   const getStatusColor = (status) => {

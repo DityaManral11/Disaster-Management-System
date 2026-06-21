@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import Sidebar from "../components/Sidebar";
 
 const Profile = () => {
@@ -7,12 +8,13 @@ const Profile = () => {
   const [user, setUser] = useState({
     full_name: savedUser?.full_name || "User",
     email: savedUser?.email || "user@example.com",
-    phone: "Not Added",
-    city: "Not Added",
+    phone: savedUser?.phone || "",
+    city: savedUser?.city || "",
     role: savedUser?.role || "citizen",
-    emergencyContact: "Not Added",
-    bloodGroup: "Not Added",
-    availability: "Not Added",
+    emergencyContact: savedUser?.emergency_contact || "",
+    bloodGroup: savedUser?.blood_group || "",
+    availability: savedUser?.availability || "Part Time",
+    skills: savedUser?.skills || "",
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -24,9 +26,40 @@ const Profile = () => {
     });
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    alert("✅ Profile Updated Successfully!");
+  const handleSave = async () => {
+    try {
+      await axios.put(
+        `http://localhost:5000/api/users/profile/${savedUser.user_id}`,
+        {
+          full_name: user.full_name,
+          phone: user.phone,
+          city: user.city,
+          blood_group: user.bloodGroup,
+          availability: user.availability,
+          emergency_contact: user.emergencyContact,
+          skills: user.skills,
+        }
+      );
+
+      const updatedUser = {
+        ...savedUser,
+        full_name: user.full_name,
+        phone: user.phone,
+        city: user.city,
+        blood_group: user.bloodGroup,
+        availability: user.availability,
+        emergency_contact: user.emergencyContact,
+        skills: user.skills,
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      setIsEditing(false);
+      alert("✅ Profile Updated Successfully!");
+    } catch (error) {
+      console.error(error);
+      alert("❌ Failed to update profile");
+    }
   };
 
   const inputClass = `w-full border rounded-lg px-4 py-3 text-gray-800 dark:text-white ${
@@ -46,8 +79,7 @@ const Profile = () => {
           </h1>
 
           <p className="text-gray-600 dark:text-gray-300 mt-2">
-            Manage your personal details, emergency contact and volunteer
-            information.
+            Manage your personal details and emergency information.
           </p>
         </div>
 
@@ -71,9 +103,10 @@ const Profile = () => {
 
             <div className="mt-6 space-y-3 text-left text-gray-700 dark:text-gray-300">
               <p>📧 <span className="font-medium">{user.email}</span></p>
-              <p>📱 <span className="font-medium">{user.phone}</span></p>
-              <p>📍 <span className="font-medium">{user.city}</span></p>
-              <p>🩸 <span className="font-medium">{user.bloodGroup}</span></p>
+              <p>📱 <span className="font-medium">{user.phone || "Not Added"}</span></p>
+              <p>📍 <span className="font-medium">{user.city || "Not Added"}</span></p>
+              <p>🩸 <span className="font-medium">{user.bloodGroup || "Not Added"}</span></p>
+              <p>🛠️ <span className="font-medium">{user.skills || "Not Added"}</span></p>
             </div>
 
             <button
@@ -112,9 +145,8 @@ const Profile = () => {
                   type="email"
                   name="email"
                   value={user.email}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  className={inputClass}
+                  disabled
+                  className="w-full border rounded-lg px-4 py-3 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-white"
                 />
               </div>
 
@@ -128,6 +160,7 @@ const Profile = () => {
                   value={user.phone}
                   onChange={handleChange}
                   disabled={!isEditing}
+                  placeholder="Enter phone number"
                   className={inputClass}
                 />
               </div>
@@ -142,6 +175,7 @@ const Profile = () => {
                   value={user.city}
                   onChange={handleChange}
                   disabled={!isEditing}
+                  placeholder="Enter city"
                   className={inputClass}
                 />
               </div>
@@ -168,6 +202,7 @@ const Profile = () => {
                   value={user.bloodGroup}
                   onChange={handleChange}
                   disabled={!isEditing}
+                  placeholder="Example: B+"
                   className={inputClass}
                 />
               </div>
@@ -187,6 +222,9 @@ const Profile = () => {
                   <option value="Part Time">Part Time</option>
                   <option value="Weekends Only">Weekends Only</option>
                   <option value="Emergency Only">Emergency Only</option>
+                  <option value="Available">Available</option>
+                  <option value="Busy">Busy</option>
+                  <option value="Offline">Offline</option>
                 </select>
               </div>
 
@@ -200,6 +238,22 @@ const Profile = () => {
                   value={user.emergencyContact}
                   onChange={handleChange}
                   disabled={!isEditing}
+                  placeholder="Emergency contact number"
+                  className={inputClass}
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-gray-700 dark:text-gray-300 mb-2">
+                  Skills
+                </label>
+                <input
+                  type="text"
+                  name="skills"
+                  value={user.skills}
+                  onChange={handleChange}
+                  disabled={!isEditing}
+                  placeholder="Example: Medical Assistance, Rescue Operations"
                   className={inputClass}
                 />
               </div>
@@ -213,37 +267,6 @@ const Profile = () => {
                 Save Changes
               </button>
             )}
-          </div>
-        </div>
-
-        <div className="mt-10 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-            📊 Activity Summary
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg text-center">
-              <p className="text-gray-600 dark:text-gray-300">SOS Requests</p>
-              <h3 className="text-4xl font-bold text-red-600 dark:text-red-400 mt-2">
-                3
-              </h3>
-            </div>
-
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg text-center">
-              <p className="text-gray-600 dark:text-gray-300">Alerts Viewed</p>
-              <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mt-2">
-                12
-              </h3>
-            </div>
-
-            <div className="bg-green-50 dark:bg-green-900/20 p-6 rounded-lg text-center">
-              <p className="text-gray-600 dark:text-gray-300">
-                Volunteer Tasks
-              </p>
-              <h3 className="text-4xl font-bold text-green-600 dark:text-green-400 mt-2">
-                5
-              </h3>
-            </div>
           </div>
         </div>
 

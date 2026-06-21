@@ -78,25 +78,19 @@ export const updateSOSStatus = (req, res) => {
   const { status } = req.body;
 
   db.query(
-    `UPDATE sos_requests
-     SET status = ?
-     WHERE sos_id = ?`,
+    "UPDATE sos_requests SET status = ? WHERE sos_id = ?",
     [status, id],
-    (err) => {
+    (err, result) => {
       if (err) {
         return res.status(500).json({
-          success: false,
           message: err.message,
         });
       }
 
-      
-  res.json({
-    success: true,
-    message: "SOS Status Updated",
-  });
-}
-
-
-);
+      res.json({
+        success: true,
+        message: "SOS status updated",
+      });
+    }
+  );
 };

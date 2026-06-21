@@ -1,16 +1,17 @@
 import Sidebar from "../../components/Sidebar";
 import { useState } from "react";
+import axios from "axios";
 
 const VolunteerProfile = () => {
   const savedUser = JSON.parse(localStorage.getItem("user"));
 
   const [profile, setProfile] = useState({
     full_name: savedUser?.full_name || "Volunteer User",
-    email: savedUser?.email || "volunteer@example.com",
-    phone: "Not Added",
-    city: "Not Added",
-    skills: "Medical Assistance",
-    availability: "Available",
+    email: savedUser?.email || "",
+    phone: savedUser?.phone || "",
+    city: savedUser?.city || "",
+    skills: savedUser?.skills || "Medical Assistance",
+    availability: savedUser?.availability || "Available",
     completedMissions: 18,
     rating: "4.8",
   });
@@ -24,9 +25,38 @@ const VolunteerProfile = () => {
     });
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    alert("Volunteer profile updated successfully!");
+  const handleSave = async () => {
+    try {
+      await axios.put(
+        `http://localhost:5000/api/users/profile/${savedUser.user_id}`,
+        {
+          full_name: profile.full_name,
+          phone: profile.phone,
+          city: profile.city,
+          blood_group: savedUser?.blood_group || "",
+          availability: profile.availability,
+          emergency_contact: savedUser?.emergency_contact || "",
+          skills: profile.skills,
+        }
+      );
+
+      const updatedUser = {
+        ...savedUser,
+        full_name: profile.full_name,
+        phone: profile.phone,
+        city: profile.city,
+        availability: profile.availability,
+        skills: profile.skills,
+      };
+
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      setIsEditing(false);
+      alert("✅ Volunteer Profile Updated Successfully!");
+    } catch (error) {
+      console.error(error);
+      alert("❌ Failed to update profile");
+    }
   };
 
   const inputClass = `w-full border rounded-lg px-4 py-3 text-gray-800 dark:text-white ${
@@ -70,8 +100,9 @@ const VolunteerProfile = () => {
 
             <div className="mt-6 space-y-3 text-left text-gray-700 dark:text-gray-300">
               <p>📧 {profile.email}</p>
-              <p>📱 {profile.phone}</p>
-              <p>📍 {profile.city}</p>
+              <p>📱 {profile.phone || "Not Added"}</p>
+              <p>📍 {profile.city || "Not Added"}</p>
+              <p>🛠️ {profile.skills || "Not Added"}</p>
               <p>⭐ Rating: {profile.rating}</p>
             </div>
 
@@ -109,9 +140,8 @@ const VolunteerProfile = () => {
                 <input
                   name="email"
                   value={profile.email}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                  className={inputClass}
+                  disabled
+                  className="w-full border rounded-lg px-4 py-3 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-white"
                 />
               </div>
 
@@ -124,6 +154,7 @@ const VolunteerProfile = () => {
                   value={profile.phone}
                   onChange={handleChange}
                   disabled={!isEditing}
+                  placeholder="Enter phone number"
                   className={inputClass}
                 />
               </div>
@@ -137,6 +168,7 @@ const VolunteerProfile = () => {
                   value={profile.city}
                   onChange={handleChange}
                   disabled={!isEditing}
+                  placeholder="Enter city"
                   className={inputClass}
                 />
               </div>
@@ -159,6 +191,7 @@ const VolunteerProfile = () => {
                   <option value="Transportation Support">
                     Transportation Support
                   </option>
+                  <option value="General Support">General Support</option>
                 </select>
               </div>
 
@@ -176,6 +209,9 @@ const VolunteerProfile = () => {
                   <option value="Available">Available</option>
                   <option value="Busy">Busy</option>
                   <option value="Offline">Offline</option>
+                  <option value="Full Time">Full Time</option>
+                  <option value="Part Time">Part Time</option>
+                  <option value="Emergency Only">Emergency Only</option>
                 </select>
               </div>
             </div>
@@ -202,9 +238,7 @@ const VolunteerProfile = () => {
           </div>
 
           <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center">
-            <p className="text-gray-600 dark:text-gray-300">
-              Active Tasks
-            </p>
+            <p className="text-gray-600 dark:text-gray-300">Active Tasks</p>
             <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mt-2">
               3
             </h3>

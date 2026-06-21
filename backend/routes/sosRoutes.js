@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/create", createSOS);
 router.get("/all", getAllSOS);
-router.put("/:id/status", updateSOSStatus);
+router.put("/status/:id", updateSOSStatus);
 
 export default router;
