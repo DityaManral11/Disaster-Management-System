@@ -13,6 +13,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
 app.use("/api/auth", authRoutes);
 app.use("/api/sos", sosRoutes);
 app.use("/api/alerts", alertRoutes);
@@ -40,6 +41,31 @@ app.get("/test-db", (req, res) => {
   });
 });
 
+// Fetch Registered Volunteers
+app.get("/api/users/volunteers", (req, res) => {
+  const sql = `
+    SELECT 
+      user_id,
+      full_name,
+      email,
+      role
+    FROM users
+    WHERE role = 'volunteer'
+  `;
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("Volunteer fetch error:", err);
+      return res.status(500).json({
+        success: false,
+        message: "Database error while fetching volunteers",
+      });
+    }
+
+    res.json(result);
+  });
+});
+
 // Dashboard Stats
 app.get("/api/dashboard/stats", (req, res) => {
   const stats = {};
@@ -49,20 +75,34 @@ app.get("/api/dashboard/stats", (req, res) => {
 
     stats.alerts = alerts[0].totalAlerts;
 
-    db.query("SELECT COUNT(*) AS totalShelters FROM shelters", (err, shelters) => {
-      if (err) return res.status(500).json(err);
-
-      stats.shelters = shelters[0].totalShelters;
-
-      db.query("SELECT COUNT(*) AS totalSOS FROM sos_requests", (err, sos) => {
+    db.query(
+      "SELECT COUNT(*) AS totalShelters FROM shelters",
+      (err, shelters) => {
         if (err) return res.status(500).json(err);
 
-        stats.sos = sos[0].totalSOS;
-        stats.volunteers = 150;
+        stats.shelters = shelters[0].totalShelters;
 
-        res.json(stats);
-      });
-    });
+        db.query(
+          "SELECT COUNT(*) AS totalSOS FROM sos_requests",
+          (err, sos) => {
+            if (err) return res.status(500).json(err);
+
+            stats.sos = sos[0].totalSOS;
+
+            db.query(
+              "SELECT COUNT(*) AS totalVolunteers FROM users WHERE role = 'volunteer'",
+              (err, volunteers) => {
+                if (err) return res.status(500).json(err);
+
+                stats.volunteers = volunteers[0].totalVolunteers;
+
+                res.json(stats);
+              }
+            );
+          }
+        );
+      }
+    );
   });
 });
 
