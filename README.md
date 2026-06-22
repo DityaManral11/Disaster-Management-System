@@ -117,10 +117,6 @@ https://disaster-management-frontend-a9pa.onrender.com
 
 https://drive.google.com/open?id=1M512Xs_tysfD_pwnsKf6SBuwA1TbovES&usp=drive_fs
 
-Example:
-
-https://youtu.be/your-video-id
-
 ---
 
 ## 👨‍💻 Team
