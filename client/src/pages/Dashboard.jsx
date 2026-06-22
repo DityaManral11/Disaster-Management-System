@@ -15,7 +15,7 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/dashboard/stats")
+    fetch("https://disaster-management-system-vij2.onrender.com/api/dashboard/stats")
       .then((res) => res.json())
       .then((data) => setStats(data))
       .catch((err) => console.error("Stats fetch error:", err));

@@ -12,7 +12,7 @@ const ManageSOS = () => {
   const fetchSOS = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/sos/all"
+        "https://disaster-management-system-vij2.onrender.com/api/sos/all"
       );
 
       setSosRequests(res.data);
@@ -24,7 +24,7 @@ const ManageSOS = () => {
   const updateStatus = async (id, status) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/sos/status/${id}`,
+        `https://disaster-management-system-vij2.onrender.com/api/sos/status/${id}`,
         { status }
       );
 

@@ -28,7 +28,7 @@ const ManageVolunteers = () => {
   const fetchVolunteers = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/users/volunteers"
+        "https://disaster-management-system-vij2.onrender.com/api/users/volunteers"
       );
 
       const dbVolunteers = res.data.map((user) => ({
@@ -57,7 +57,7 @@ const ManageVolunteers = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/tasks/assign",
+        "https://disaster-management-system-vij2.onrender.com/api/tasks/assign",
         taskData
       );
 

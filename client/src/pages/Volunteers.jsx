@@ -83,7 +83,7 @@ const Volunteers = () => {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/users/become-volunteer/${savedUser.user_id}`,
+        `https://disaster-management-system-vij2.onrender.com/api/users/become-volunteer/${savedUser.user_id}`,
         {
           full_name: volunteer.name,
           phone: volunteer.phone,

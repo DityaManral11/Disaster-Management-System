@@ -20,7 +20,7 @@ const AdminDashboard = () => {
 
   const fetchSOS = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/sos/all");
+      const res = await axios.get("https://disaster-management-system-vij2.onrender.com/api/sos/all");
       setSosRequests(res.data);
     } catch (error) {
       console.error(error);

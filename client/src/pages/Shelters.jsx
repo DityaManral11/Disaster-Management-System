@@ -6,7 +6,7 @@ const Shelters = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/shelters")
+    fetch("https://disaster-management-system-vij2.onrender.com/api/shelters")
       .then((res) => res.json())
       .then((data) => setShelters(data))
       .catch((err) => console.error("Shelters fetch error:", err));

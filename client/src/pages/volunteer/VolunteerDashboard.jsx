@@ -8,7 +8,7 @@ const VolunteerDashboard = () => {
 
   useEffect(() => {
     if (user?.user_id) {
-      fetch(`http://localhost:5000/api/tasks/volunteer/${user.user_id}`)
+      fetch(`https://disaster-management-system-vij2.onrender.com/api/tasks/volunteer/${user.user_id}`)
         .then((res) => res.json())
         .then((data) => setTasks(data))
         .catch((err) => console.error("Task fetch error:", err));

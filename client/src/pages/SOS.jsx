@@ -70,7 +70,7 @@ const SOS = () => {
     try {
       setSending(true);
 
-      const res = await axios.post("http://localhost:5000/api/sos/create", {
+      const res = await axios.post("https://disaster-management-system-vij2.onrender.com/api/sos/create", {
         user_id: user.user_id,
         emergency_type: emergencyType,
         latitude,

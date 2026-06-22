@@ -28,7 +28,7 @@ const VolunteerProfile = () => {
   const handleSave = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/users/profile/${savedUser.user_id}`,
+        `https://disaster-management-system-vij2.onrender.com/api/users/profile/${savedUser.user_id}`,
         {
           full_name: profile.full_name,
           phone: profile.phone,
