@@ -6,9 +6,13 @@ A comprehensive full-stack disaster response platform designed to improve emerge
 
 ## 🚀 Live Demo
 
-🔗 **Frontend:** [Add Vercel Deployment Link Here]
+### Frontend
 
-🎥 **Project Demo:** [Add Video Link Here]
+https://disaster-management-frontend-a9pa.onrender.com
+
+### Backend API
+
+https://disaster-management-system-vij2.onrender.com
 
 ---
 
@@ -55,6 +59,13 @@ During disasters, affected individuals often face difficulties accessing emergen
 * Skill-Based Volunteer Profiles
 * Task Assignment System
 
+### 🌍 Live Disaster Map
+
+* Interactive Map Interface
+* Disaster Location Tracking
+* Emergency Hotspot Visualization
+* Real-Time Monitoring
+
 ### 📊 Dashboard Analytics
 
 * Total Alerts
@@ -70,9 +81,10 @@ During disasters, affected individuals often face difficulties accessing emergen
 
 * React.js
 * Vite
-* React Router
+* React Router DOM
 * Tailwind CSS
-* JavaScript
+* Axios
+* React Leaflet
 
 ### Backend
 
@@ -81,13 +93,13 @@ During disasters, affected individuals often face difficulties accessing emergen
 
 ### Database
 
-* MySQL
+* MySQL (Aiven Cloud)
 
-### Deployment & Tools
+### Deployment
 
-* Git
+* Render
 * GitHub
-* Vercel
+* Aiven Cloud
 
 ---
 
@@ -99,17 +111,20 @@ Disaster-Management-System/
 ├── client/
 │   ├── public/
 │   ├── src/
-│   ├── index.html
-│   ├── vite.config.js
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── utils/
+│   ├── App.jsx
+│   ├── main.jsx
 │   └── package.json
 │
 ├── backend/
-│   ├── config/
-│   ├── controllers/
-│   ├── middleware/
 │   ├── routes/
 │   ├── server.js
-│   └── package.json
+│   ├── db.js
+│   ├── package.json
+│   └── .env
 │
 └── README.md
 ```
@@ -118,11 +133,13 @@ Disaster-Management-System/
 
 ## ⚙️ Installation & Setup
 
-### Clone the Repository
+### Clone Repository
 
 ```bash
 git clone https://github.com/DityaManral11/Disaster-Management-System.git
 ```
+
+---
 
 ### Frontend Setup
 
@@ -131,6 +148,8 @@ cd client
 npm install
 npm run dev
 ```
+
+---
 
 ### Backend Setup
 
@@ -144,16 +163,23 @@ npm start
 
 ## 🔐 Environment Variables
 
-Create a `.env` file inside the `backend` directory:
+Create a `.env` file inside the backend directory:
 
 ```env
-DB_PASSWORD=your_mysql_password
+DB_HOST=your_aiven_host
+DB_PORT=11265
+DB_USER=avnadmin
+DB_PASSWORD=your_aiven_password
+DB_NAME=defaultdb
+
+JWT_SECRET=your_secret_key
+
 PORT=5000
 ```
 
 ---
 
-## 📡 API Endpoints
+## 📡 API Modules
 
 ### Authentication
 
@@ -163,25 +189,24 @@ PORT=5000
 ### SOS Services
 
 * Create SOS Request
+* View SOS Requests
 * Update SOS Status
-* Fetch User SOS Requests
 
-### Shelter Services
-
-* Get Shelter Information
-* Shelter Management
-
-### Alert Services
+### Alerts
 
 * Create Alerts
-* Fetch Alerts
+* View Alerts
 
-### Volunteer Services
+### Shelters
 
-* Register as Volunteer
-* Assign Tasks
-* Update Task Status
-* View Volunteer Tasks
+* Get Shelter Information
+* Capacity Tracking
+
+### Volunteers
+
+* Volunteer Registration
+* Task Assignment
+* Task Tracking
 
 ---
 
@@ -189,41 +214,44 @@ PORT=5000
 
 ### 🏠 Home Page
 
-*Add Screenshot Here*
+*Add Screenshot*
 
 ### 🆘 SOS Dashboard
 
-*Add Screenshot Here*
+*Add Screenshot*
 
-### 🚨 Alerts Section
+### 🚨 Alerts Dashboard
 
-*Add Screenshot Here*
+*Add Screenshot*
 
-### 🤝 Volunteer Management
+### 🤝 Volunteer Dashboard
 
-*Add Screenshot Here*
+*Add Screenshot*
 
-### 🏠 Shelter Management
+### 🌍 Live Disaster Map
 
-*Add Screenshot Here*
+*Add Screenshot*
 
 ---
 
 ## 🎯 Future Improvements
 
 * Real-Time Notification System
-* Disaster Prediction Integration
-* Interactive Maps
-* Multi-Language Support
-* Mobile Application
-* Live Volunteer Tracking
 * AI-Based Emergency Assistance
+* Disaster Prediction Models
+* Live Volunteer Tracking
+* Mobile Application
+* Multi-Language Support
+* GPS-Based Rescue Optimization
 
 ---
 
 ## 👥 Team
 
-Developed as a Hackathon Project focused on building technology-driven solutions for disaster preparedness, emergency response, and community resilience.
+* Ditya Manral
+* Jiya Sinha
+
+Developed as a full-stack Disaster Management System for emergency preparedness, disaster response, volunteer coordination, and citizen safety.
 
 ---
 
