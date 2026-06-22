@@ -29,7 +29,7 @@ const AdminDashboard = () => {
 
   const updateSOSStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/sos/status/${id}`, {
+      await axios.put(`https://disaster-management-system-vij2.onrender.com/api/sos/status/${id}`, {
         status,
       });
 
