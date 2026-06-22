@@ -1,79 +1,17 @@
 # 🌍 Disaster Management System
 
-A comprehensive full-stack disaster response platform designed to improve emergency coordination, disaster preparedness, and rescue operations. The system enables users to report emergencies, access shelter information, receive disaster alerts, and connect with volunteers during critical situations.
+A full-stack web application for managing disaster response and emergency situations.
 
----
-
-## 🚀 Live Demo
-
-### Frontend
-
-https://disaster-management-frontend-a9pa.onrender.com
-
-### Backend API
-
-https://disaster-management-system-vij2.onrender.com
-
----
-
-## 📌 Problem Statement
-
-During disasters, affected individuals often face difficulties accessing emergency information, rescue services, shelters, and volunteers. This platform provides a centralized solution to streamline communication and coordination among citizens, volunteers, and administrators, ensuring faster and more effective disaster response.
-
----
-
-## ✨ Features
-
-### 👤 User Management
+## 🚀 Features
 
 * User Registration & Login
-* Secure Authentication
+* SOS Request System
+* Emergency Alerts
+* Shelter Management
+* Volunteer Registration
+* Volunteer Task Assignment
+* Admin Dashboard
 * Profile Management
-* Emergency Contact Information
-* Volunteer Registration
-
-### 🆘 SOS Emergency System
-
-* Raise SOS Requests
-* Track SOS Status
-* View Previous Requests
-* Emergency Response Coordination
-
-### 🚨 Disaster Alerts
-
-* Real-Time Disaster Notifications
-* Alert Creation & Management
-* Disaster Information Dashboard
-
-### 🏠 Shelter Management
-
-* Shelter Listings
-* Capacity Monitoring
-* Shelter Information Access
-* Location-Based Shelter Support
-
-### 🤝 Volunteer Coordination
-
-* Volunteer Registration
-* Availability Management
-* Skill-Based Volunteer Profiles
-* Task Assignment System
-
-### 🌍 Live Disaster Map
-
-* Interactive Map Interface
-* Disaster Location Tracking
-* Emergency Hotspot Visualization
-* Real-Time Monitoring
-
-### 📊 Dashboard Analytics
-
-* Total Alerts
-* Total Shelters
-* Total SOS Requests
-* Total Volunteers
-
----
 
 ## 🛠️ Tech Stack
 
@@ -81,89 +19,36 @@ During disasters, affected individuals often face difficulties accessing emergen
 
 * React.js
 * Vite
-* React Router DOM
 * Tailwind CSS
 * Axios
-* React Leaflet
 
 ### Backend
 
 * Node.js
 * Express.js
-
-### Database
-
-* MySQL (Aiven Cloud)
-
-### Deployment
-
-* Render
-* GitHub
-* Aiven Cloud
-
----
+* MySQL
 
 ## 📂 Project Structure
 
-```text
+```txt
 Disaster-Management-System/
 │
 ├── client/
-│   ├── public/
 │   ├── src/
-│   ├── components/
-│   ├── pages/
-│   ├── services/
-│   ├── utils/
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── package.json
+│   └── public/
 │
 ├── backend/
 │   ├── routes/
-│   ├── server.js
-│   ├── db.js
-│   ├── package.json
-│   └── .env
+│   ├── controllers/
+│   ├── config/
+│   └── server.js
 │
 └── README.md
 ```
 
----
-
-## ⚙️ Installation & Setup
-
-### Clone Repository
-
-```bash
-git clone https://github.com/DityaManral11/Disaster-Management-System.git
-```
-
----
-
-### Frontend Setup
-
-```bash
-cd client
-npm install
-npm run dev
-```
-
----
-
-### Backend Setup
-
-```bash
-cd backend
-npm install
-npm start
-```
-
----
-
 ## 🔐 Environment Variables
 
-Create a `.env` file inside the backend directory:
+Create a `.env` file inside the backend folder:
 
 ```env
 DB_HOST=your_aiven_host
@@ -177,88 +62,48 @@ JWT_SECRET=your_secret_key
 PORT=5000
 ```
 
----
+⚠️ Never upload real passwords, database credentials, or JWT secrets to GitHub.
 
-## 📡 API Modules
+## ⚙️ Installation
 
-### Authentication
+### Backend
 
-* User Registration
-* User Login
+```bash
+cd backend
+npm install
+npm run dev
+```
 
-### SOS Services
+### Frontend
 
-* Create SOS Request
-* View SOS Requests
-* Update SOS Status
+```bash
+cd client
+npm install
+npm run dev
+```
 
-### Alerts
+## 🌐 Deployment
 
-* Create Alerts
-* View Alerts
+### Frontend
 
-### Shelters
+Deploy on Render/Vercel.
 
-* Get Shelter Information
-* Capacity Tracking
+### Backend
 
-### Volunteers
+Deploy on Render Web Service.
 
-* Volunteer Registration
-* Task Assignment
-* Task Tracking
+Required Environment Variables:
 
----
+```env
+DB_HOST
+DB_PORT
+DB_USER
+DB_PASSWORD
+DB_NAME
+JWT_SECRET
+PORT
+```
 
-## 📸 Screenshots
+## 👨‍💻 Author
 
-### 🏠 Home Page
-
-*Add Screenshot*
-
-### 🆘 SOS Dashboard
-
-*Add Screenshot*
-
-### 🚨 Alerts Dashboard
-
-*Add Screenshot*
-
-### 🤝 Volunteer Dashboard
-
-*Add Screenshot*
-
-### 🌍 Live Disaster Map
-
-*Add Screenshot*
-
----
-
-## 🎯 Future Improvements
-
-* Real-Time Notification System
-* AI-Based Emergency Assistance
-* Disaster Prediction Models
-* Live Volunteer Tracking
-* Mobile Application
-* Multi-Language Support
-* GPS-Based Rescue Optimization
-
----
-
-## 👥 Team
-
-* Ditya Manral
-* Jiya Sinha
-
-Developed as a full-stack Disaster Management System for emergency preparedness, disaster response, volunteer coordination, and citizen safety.
-
----
-
-## 📄 License
-
-This project is intended for educational, learning, and hackathon purposes.
-
----
-
-⭐ If you found this project useful, consider giving it a star on GitHub.
+Ditya Manral
