@@ -115,7 +115,7 @@ https://disaster-management-frontend-a9pa.onrender.com
 
 ## 🎥 Demo Video
 
-📹 Add your YouTube or Google Drive Video Link Here
+https://drive.google.com/open?id=1M512Xs_tysfD_pwnsKf6SBuwA1TbovES&usp=drive_fs
 
 Example:
 
