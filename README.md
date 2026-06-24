@@ -105,8 +105,6 @@ The Disaster Management System is a centralized platform that connects citizens,
 
 ## 🌐 Live Demo
 
-🔗 Add your Render Frontend Link Here
-
 Example:
 
 https://disaster-management-frontend-a9pa.onrender.com
