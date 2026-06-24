@@ -122,6 +122,7 @@ https://drive.google.com/open?id=1M512Xs_tysfD_pwnsKf6SBuwA1TbovES&usp=drive_fs
 ## 👨‍💻 Team
 
 **Ditya Manral**
+
 **Jiya Sinha**
 
 B.Tech CSE (Core)
